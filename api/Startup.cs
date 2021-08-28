@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
@@ -26,11 +27,14 @@ namespace MovieBox
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MovieBox", Version = "v1" });
+
+                // Required to display summary annotations in swagger UI
+                var swaggerXmlFile = Path.Combine(AppContext.BaseDirectory, "MovieBox.xml");
+                c.IncludeXmlComments(swaggerXmlFile);
             });
         }
 
@@ -39,11 +43,13 @@ namespace MovieBox
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();                
+                app.UseDeveloperExceptionPage();
             }
 
             app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MovieBox v1"));
+            app.UseSwaggerUI(c =>
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "MovieBox v1")
+            );
 
             app.UseHttpsRedirection();
 

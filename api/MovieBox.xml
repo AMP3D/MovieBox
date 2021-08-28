@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MovieBox</name>
+    </assembly>
+    <members>
+        <member name="M:MovieBox.Controllers.MoviesController.AddMovieAsync(MovieBox.Common.Models.MovieModel)">
+            <summary>
+            Add a movie
+            </summary>
+            <param name="movieModel">Movie item to add</param>
+            <returns>Created if movie is successfully added</returns>
+        </member>
+        <member name="M:MovieBox.Controllers.MoviesController.GetMovieByIdAsync(System.Int32)">
+            <summary>
+            Retrieve a movie by its ID
+            </summary>
+            <param name="id">Movie ID</param>
+            <returns>A movie</returns>
+        </member>
+        <member name="M:MovieBox.Controllers.MoviesController.GetMovieByTitleAsync(System.String)">
+            <summary>
+            Retrieve a movie by its title
+            </summary>
+            <param name="title">Movie title</param>
+            <returns>A movie</returns>
+        </member>
+        <member name="M:MovieBox.Controllers.MoviesController.GetMoviesAsync">
+            <summary>
+            Get all movies
+            </summary>
+            <returns>List of all movies</returns>
+        </member>
+        <member name="M:MovieBox.Controllers.MoviesController.GetMoviesByCategoryAsync(System.Int32)">
+            <summary>
+            Retrieve a movie by category ID
+            </summary>
+            <param name="id">Movie category ID</param>
+            <returns>A movie</returns>
+        </member>
+        <member name="M:MovieBox.Controllers.MoviesController.GetMoviesByGenreAsync(System.Int32)">
+            <summary>
+            Retrieve a movie by genre ID
+            </summary>
+            <param name="id">Movie genre ID</param>
+            <returns>A movie</returns>
+        </member>
+        <member name="M:MovieBox.Controllers.MoviesController.UpdateMovie(Microsoft.AspNetCore.JsonPatch.JsonPatchDocument{MovieBox.Common.Models.MovieModel})">
+            <summary>
+            Update data on a movie
+            </summary>
+            <param name="patchDoc">Data to update</param>
+            <returns>No Content if movie is successfully updated</returns>
+        </member>
+        <member name="M:MovieBox.Controllers.MoviesOnDemandController.PlayMovieAsync(System.Int32)">
+            <summary>
+            Play movie On-Demand
+            </summary>
+            <param name="id">Movie ID</param>
+            <returns>OK if movie can be played</returns>
+        </member>
+        <member name="M:MovieBox.Controllers.MoviesPurchaseController.PurchaseMovieAsync(System.Int32)">
+            <summary>
+            Purchase a movie by movie ID
+            </summary>
+            <param name="id">Movie ID</param>
+            <returns>OK if movie is successfully purchased</returns>
+        </member>
+        <member name="M:MovieBox.Controllers.MoviesPurchaseController.ReturnMovieAsync(System.Int32)">
+            <summary>
+            Return a movie by movie ID
+            </summary>
+            <param name="id">Movie ID</param>
+            <returns>No Content if movie return is successful</returns>
+        </member>
+        <member name="M:MovieBox.Controllers.MoviesRentalController.RentMovieAsync(System.Int32)">
+            <summary>
+            Rent a movie by movie ID
+            </summary>
+            <param name="id">Movie ID</param>
+            <returns>OK if movie is successfully rented</returns>
+        </member>
+        <member name="M:MovieBox.Controllers.MoviesRentalController.ReturnMovieAsync(System.Int32)">
+            <summary>
+            Return a movie rental by movie ID
+            </summary>
+            <param name="id">Movie ID</param>
+            <returns>No Content if movie return is successful</returns>
+        </member>
+    </members>
+</doc>
