@@ -14,7 +14,7 @@ namespace MovieBox.DAO.Users
         {
         }
 
-        public async Task<UserModel> AddUser(UserModel userModel)
+        public async Task<UserModel> AddUserAsync(UserModel userModel)
         {
             var query = "SELECT 1 FROM User WHERE UserName = @UserName";
 
@@ -38,7 +38,7 @@ namespace MovieBox.DAO.Users
             return userModel;
         }
 
-        public async Task<UserModel> GetUser(string userName)
+        public async Task<UserModel> GetUserAsync(string userName)
         {
             var query = $"SELECT * FROM User WHERE UserName = @UserName";
 
@@ -54,7 +54,7 @@ namespace MovieBox.DAO.Users
             return result;
         }
 
-        public async Task<IEnumerable<UserModel>> GetUsers()
+        public async Task<IEnumerable<UserModel>> GetUsersAsync()
         {
             var query = $"SELECT * FROM User";
 

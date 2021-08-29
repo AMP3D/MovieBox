@@ -6,10 +6,10 @@ namespace MovieBox.DAO.Users
 {
     public interface IUsersDAO
     {
-        public Task<UserModel> AddUser(UserModel userModel);
+        public Task<UserModel> AddUserAsync(UserModel userModel);
 
-        public Task<UserModel> GetUser(string userName);
+        public Task<UserModel> GetUserAsync(string userName);
 
-        public Task<IEnumerable<UserModel>> GetUsers();
+        public Task<IEnumerable<UserModel>> GetUsersAsync();
     }
 }
