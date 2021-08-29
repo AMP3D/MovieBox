@@ -10,6 +10,8 @@ using MovieBox.Common.Exceptions;
 using MovieBox.Common.Models;
 using MediatR;
 using MovieBox.Logic.Query.Movies;
+using MovieBox.Models;
+using AutoMapper;
 
 namespace MovieBox.Controllers
 {
@@ -18,25 +20,29 @@ namespace MovieBox.Controllers
     public class MoviesController : ControllerBase
     {
         private readonly ILogger<MoviesController> _logger;
+        private readonly IMapper _mapper;
         private readonly IMediator _mediator;
 
-        public MoviesController(ILogger<MoviesController> logger, IMediator mediator)
+        public MoviesController(ILogger<MoviesController> logger, IMapper mapper, IMediator mediator)
         {
             _logger = logger;
+            _mapper = mapper;
             _mediator = mediator;
         }
 
         /// <summary>
         /// Add a movie
         /// </summary>
-        /// <param name="movieModel">Movie item to add</param>
+        /// <param name="movieCreateModel">Movie item to add</param>
         /// <returns>Created if movie is successfully added</returns>
         [HttpPost]
         [Route("movie")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> AddMovieAsync([FromBody] MovieModel movieModel)
+        public async Task<IActionResult> AddMovieAsync([FromBody] MovieCreateModel movieCreateModel)
         {
+            var movieModel = _mapper.Map<MovieModel>(movieCreateModel);
+
             throw new NotImplementedException();
         }
 
@@ -48,26 +54,28 @@ namespace MovieBox.Controllers
         [HttpGet]
         [Route("movie/{id}")]
         [AllowAnonymous]
-        [ProducesResponseType(typeof(MovieModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(MovieViewModel), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetMovieByIdAsync(int id)
         {
-            var result = await _mediator.Send(new GetMovieByIdQuery(id));
+            var movie = await _mediator.Send(new GetMovieByIdQuery(id));
+            var result = _mapper.Map<MovieViewModel>(movie);
 
             return Ok(result);
         }
 
         /// <summary>
-        /// Retrieve a movie by its title
+        /// Retrieve movies by title
         /// </summary>
         /// <param name="title">Movie title</param>
-        /// <returns>A movie</returns>
+        /// <returns>List of movies matching title</returns>
         [HttpGet]
         [Route("movie/titles/{title}")]
         [AllowAnonymous]
-        [ProducesResponseType(typeof(MovieModel), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetMovieByTitleAsync(string title)
+        [ProducesResponseType(typeof(IEnumerable<MovieModel>), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetMoviesByTitleAsync(string title)
         {
-            var result = await _mediator.Send(new GetMovieByTitleQuery(title));
+            var movies = await _mediator.Send(new GetMoviesByTitleQuery(title?.Trim()));
+            var result = _mapper.Map<IEnumerable<MovieViewModel>>(movies);
 
             return Ok(result);
         }
@@ -82,39 +90,42 @@ namespace MovieBox.Controllers
         [ProducesResponseType(typeof(IEnumerable<MovieModel>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetMoviesAsync()
         {
-            var result = await _mediator.Send(new GetMoviesQuery());
+            var movies = await _mediator.Send(new GetMoviesQuery());
+            var result = _mapper.Map<IEnumerable<MovieViewModel>>(movies);
 
             return Ok(result);
         }
 
         /// <summary>
-        /// Retrieve a movie by category ID
+        /// Retrieve movies by category ID
         /// </summary>
         /// <param name="id">Movie category ID</param>
-        /// <returns>A movie</returns>
+        /// <returns>List of movies matching the category</returns>
         [HttpGet]
         [Route("category/{id}")]
         [AllowAnonymous]
-        [ProducesResponseType(typeof(MovieModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<MovieModel>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetMoviesByCategoryAsync(int id)
         {
-            var result = await _mediator.Send(new GetMoviesByCategoryQuery(id));
+            var movies = await _mediator.Send(new GetMoviesByCategoryQuery(id));
+            var result = _mapper.Map<IEnumerable<MovieViewModel>>(movies);
 
             return Ok(result);
         }
 
         /// <summary>
-        /// Retrieve a movie by genre ID
+        /// Retrieve movies by genre ID
         /// </summary>
         /// <param name="id">Movie genre ID</param>
-        /// <returns>A movie</returns>
+        /// <returns>List of movies matching the genre</returns>
         [HttpGet]
         [Route("genre/{id}")]
         [AllowAnonymous]
-        [ProducesResponseType(typeof(MovieModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<MovieModel>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetMoviesByGenreAsync(int id)
         {
-            var result = await _mediator.Send(new GetMoviesByGenreQuery(id));
+            var movies = await _mediator.Send(new GetMoviesByGenreQuery(id));
+            var result = _mapper.Map<IEnumerable<MovieViewModel>>(movies);
 
             return Ok(result);
         }

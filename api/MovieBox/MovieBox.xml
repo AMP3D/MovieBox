@@ -4,11 +4,11 @@
         <name>MovieBox</name>
     </assembly>
     <members>
-        <member name="M:MovieBox.Controllers.MoviesController.AddMovieAsync(MovieBox.Common.Models.MovieModel)">
+        <member name="M:MovieBox.Controllers.MoviesController.AddMovieAsync(MovieBox.Models.MovieCreateModel)">
             <summary>
             Add a movie
             </summary>
-            <param name="movieModel">Movie item to add</param>
+            <param name="movieCreateModel">Movie item to add</param>
             <returns>Created if movie is successfully added</returns>
         </member>
         <member name="M:MovieBox.Controllers.MoviesController.GetMovieByIdAsync(System.Int32)">
@@ -18,12 +18,12 @@
             <param name="id">Movie ID</param>
             <returns>A movie</returns>
         </member>
-        <member name="M:MovieBox.Controllers.MoviesController.GetMovieByTitleAsync(System.String)">
+        <member name="M:MovieBox.Controllers.MoviesController.GetMoviesByTitleAsync(System.String)">
             <summary>
-            Retrieve a movie by its title
+            Retrieve movies by title
             </summary>
             <param name="title">Movie title</param>
-            <returns>A movie</returns>
+            <returns>List of movies matching title</returns>
         </member>
         <member name="M:MovieBox.Controllers.MoviesController.GetMoviesAsync">
             <summary>
@@ -33,17 +33,17 @@
         </member>
         <member name="M:MovieBox.Controllers.MoviesController.GetMoviesByCategoryAsync(System.Int32)">
             <summary>
-            Retrieve a movie by category ID
+            Retrieve movies by category ID
             </summary>
             <param name="id">Movie category ID</param>
-            <returns>A movie</returns>
+            <returns>List of movies matching the category</returns>
         </member>
         <member name="M:MovieBox.Controllers.MoviesController.GetMoviesByGenreAsync(System.Int32)">
             <summary>
-            Retrieve a movie by genre ID
+            Retrieve movies by genre ID
             </summary>
             <param name="id">Movie genre ID</param>
-            <returns>A movie</returns>
+            <returns>List of movies matching the genre</returns>
         </member>
         <member name="M:MovieBox.Controllers.MoviesController.UpdateMovie(Microsoft.AspNetCore.JsonPatch.JsonPatchDocument{MovieBox.Common.Models.MovieModel})">
             <summary>
