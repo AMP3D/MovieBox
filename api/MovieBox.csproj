@@ -16,5 +16,6 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\MovieBox.Common\MovieBox.Common.csproj" />
+		<ProjectReference Include="..\MovieBox.Logic\MovieBox.Logic.csproj" />
 	</ItemGroup>
 </Project>

@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="9.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MovieBox.Common\MovieBox.Common.csproj" />
+    <ProjectReference Include="..\MovieBox.DAO\MovieBox.DAO.csproj" />
+    <ProjectReference Include="..\MovieBox.Validation\MovieBox.Validation.csproj" />
+  </ItemGroup>
+
+</Project>

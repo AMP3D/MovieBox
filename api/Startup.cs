@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using MovieBox.Common.Models;
+using MovieBox.Logic;
 
 namespace MovieBox
 {
@@ -24,6 +25,7 @@ namespace MovieBox
             services.Configure<AppSettingsModel>(Configuration.GetSection("AppSettings"));
 
             services.AddAuthServices(Configuration);
+            services.AddMovieLogicServices(Configuration);
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

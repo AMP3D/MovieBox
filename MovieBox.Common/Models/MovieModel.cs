@@ -32,6 +32,6 @@ namespace MovieBox.Common.Models
         public string Title { get; set; }
 
         [JsonProperty("yearReleased")]
-        public string YearReleased { get; set; }
+        public int? YearReleased { get; set; }
     }
 }
