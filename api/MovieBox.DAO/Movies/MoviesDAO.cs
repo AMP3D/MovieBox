@@ -79,7 +79,7 @@ namespace MovieBox.DAO.Movies
 
             using var connection = CreateConnection();
             var exists = await connection.QueryFirstOrDefaultAsync(query, parameters);
-            if (exists && !isUpdate)
+            if (exists != null && !isUpdate)
             {
                 throw new MovieExistsException($"There is already a title called {movieModel.Title} released in the year {movieModel.YearReleased}");
             }

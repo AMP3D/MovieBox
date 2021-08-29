@@ -12,6 +12,7 @@ using MediatR;
 using MovieBox.Logic.Query.Movies;
 using MovieBox.Models;
 using AutoMapper;
+using MovieBox.Logic.Command.Movies;
 
 namespace MovieBox.Controllers
 {
@@ -43,7 +44,9 @@ namespace MovieBox.Controllers
         {
             var movieModel = _mapper.Map<MovieModel>(movieCreateModel);
 
-            throw new NotImplementedException();
+            var result = await _mediator.Send(new AddMovieCommand(movieModel));
+
+            return Created("movie", result);
         }
 
         /// <summary>
