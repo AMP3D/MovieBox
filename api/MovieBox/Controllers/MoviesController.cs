@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -9,6 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MovieBox.Common.Exceptions;
 using MovieBox.Common.Models;
+using MediatR;
+using MovieBox.Logic.Query.Movies;
 
 namespace MovieBox.Controllers
 {
@@ -17,10 +18,12 @@ namespace MovieBox.Controllers
     public class MoviesController : ControllerBase
     {
         private readonly ILogger<MoviesController> _logger;
+        private readonly IMediator _mediator;
 
-        public MoviesController(ILogger<MoviesController> logger)
+        public MoviesController(ILogger<MoviesController> logger, IMediator mediator)
         {
             _logger = logger;
+            _mediator = mediator;
         }
 
         /// <summary>
@@ -48,10 +51,7 @@ namespace MovieBox.Controllers
         [ProducesResponseType(typeof(MovieModel), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetMovieByIdAsync(int id)
         {
-            var result = await Task.FromResult(new MovieModel()
-            {
-                Id = id
-            });
+            var result = await _mediator.Send(new GetMovieByIdQuery(id));
 
             return Ok(result);
         }
@@ -67,10 +67,7 @@ namespace MovieBox.Controllers
         [ProducesResponseType(typeof(MovieModel), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetMovieByTitleAsync(string title)
         {
-            var result = await Task.FromResult(new MovieModel()
-            {
-                Title = title
-            });
+            var result = await _mediator.Send(new GetMovieByTitleQuery(title));
 
             return Ok(result);
         }
@@ -85,13 +82,7 @@ namespace MovieBox.Controllers
         [ProducesResponseType(typeof(IEnumerable<MovieModel>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetMoviesAsync()
         {
-            var result = await Task.FromResult(new List<MovieModel>()
-            {
-                new MovieModel()
-                {
-                    Title = "Con Air"
-                }
-            });
+            var result = await _mediator.Send(new GetMoviesQuery());
 
             return Ok(result);
         }
@@ -107,8 +98,9 @@ namespace MovieBox.Controllers
         [ProducesResponseType(typeof(MovieModel), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetMoviesByCategoryAsync(int id)
         {
-            // Placeholder: this endpoint is just to demonstrate different way to get movies if this were a live app
-            throw new NotImplementedException();
+            var result = await _mediator.Send(new GetMoviesByCategoryQuery(id));
+
+            return Ok(result);
         }
 
         /// <summary>
@@ -122,8 +114,9 @@ namespace MovieBox.Controllers
         [ProducesResponseType(typeof(MovieModel), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetMoviesByGenreAsync(int id)
         {
-            // Placeholder: this endpoint is just to demonstrate different way to get movies if this were a live app
-            throw new NotImplementedException();
+            var result = await _mediator.Send(new GetMoviesByGenreQuery(id));
+
+            return Ok(result);
         }
 
         /// <summary>

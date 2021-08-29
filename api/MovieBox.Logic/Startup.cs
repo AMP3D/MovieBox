@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using MediatR;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MovieBox.DAO;
 using MovieBox.Validation;
@@ -11,6 +12,7 @@ namespace MovieBox.Logic
         {
             services.AddMoviesValidationServices();
             services.AddMoviesDAOServices(configuration);
+            services.AddMediatR(typeof(Startup).Assembly); // Add full assembly
 
             return services;
         }

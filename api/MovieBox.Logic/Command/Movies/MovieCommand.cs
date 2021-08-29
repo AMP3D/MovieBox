@@ -4,9 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MovieBox.Logic.Query
+namespace MovieBox.Logic.Command.Movies
 {
-    public class MovieQuery
-    {
-    }
 }
