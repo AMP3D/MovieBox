@@ -107,6 +107,7 @@ namespace MovieBox.Controllers
         [ProducesResponseType(typeof(MovieModel), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetMoviesByCategoryAsync(int id)
         {
+            // Placeholder: this endpoint is just to demonstrate different way to get movies if this were a live app
             throw new NotImplementedException();
         }
 
@@ -121,6 +122,7 @@ namespace MovieBox.Controllers
         [ProducesResponseType(typeof(MovieModel), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetMoviesByGenreAsync(int id)
         {
+            // Placeholder: this endpoint is just to demonstrate different way to get movies if this were a live app
             throw new NotImplementedException();
         }
 
