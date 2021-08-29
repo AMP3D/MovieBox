@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
@@ -30,6 +31,7 @@ namespace MovieBox.Controllers
         [HttpPost]
         [Route("movie")]
         [ProducesResponseType(StatusCodes.Status201Created)]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddMovieAsync([FromBody] MovieModel movieModel)
         {
             throw new NotImplementedException();
@@ -42,6 +44,7 @@ namespace MovieBox.Controllers
         /// <returns>A movie</returns>
         [HttpGet]
         [Route("movie/{id}")]
+        [AllowAnonymous]
         [ProducesResponseType(typeof(MovieModel), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetMovieByIdAsync(int id)
         {
@@ -60,6 +63,7 @@ namespace MovieBox.Controllers
         /// <returns>A movie</returns>
         [HttpGet]
         [Route("movie/titles/{title}")]
+        [AllowAnonymous]
         [ProducesResponseType(typeof(MovieModel), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetMovieByTitleAsync(string title)
         {
@@ -77,6 +81,7 @@ namespace MovieBox.Controllers
         /// <returns>List of all movies</returns>
         [HttpGet]
         [Route("")]
+        [AllowAnonymous]
         [ProducesResponseType(typeof(IEnumerable<MovieModel>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetMoviesAsync()
         {
@@ -98,6 +103,7 @@ namespace MovieBox.Controllers
         /// <returns>A movie</returns>
         [HttpGet]
         [Route("category/{id}")]
+        [AllowAnonymous]
         [ProducesResponseType(typeof(MovieModel), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetMoviesByCategoryAsync(int id)
         {
@@ -111,6 +117,7 @@ namespace MovieBox.Controllers
         /// <returns>A movie</returns>
         [HttpGet]
         [Route("genre/{id}")]
+        [AllowAnonymous]
         [ProducesResponseType(typeof(MovieModel), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetMoviesByGenreAsync(int id)
         {
@@ -124,6 +131,7 @@ namespace MovieBox.Controllers
         /// <returns>No Content if movie is successfully updated</returns>
         [HttpPatch]
         [Route("")]
+        [Authorize("Admin")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> UpdateMovie([FromBody] JsonPatchDocument<MovieModel> patchDoc)
         {
