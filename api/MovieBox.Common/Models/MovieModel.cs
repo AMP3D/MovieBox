@@ -2,6 +2,7 @@
 
 namespace MovieBox.Common.Models
 {
+    [JsonObject(MemberSerialization.OptIn)]
     public class MovieModel
     {
         [JsonProperty("categoryId")]
@@ -10,8 +11,10 @@ namespace MovieBox.Common.Models
         [JsonProperty("genreId")]
         public int? GenreId { get; set; }
 
-        [JsonProperty("id")]
-        public int? Id { get; set; }
+        public virtual int? Id { get; set; }
+
+        [JsonProperty("imageUrl")]
+        public string ImageUrl { get; set; }
 
         [JsonProperty("isAvailable")]
         public bool? IsAvailable { get; set; }
