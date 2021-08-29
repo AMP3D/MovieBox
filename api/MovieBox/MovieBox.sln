@@ -5,13 +5,20 @@ VisualStudioVersion = 16.0.31624.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieBox", "MovieBox.csproj", "{3FE4A788-DF3D-4325-94EB-33E487DF6037}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieBox.Common", "..\MovieBox.Common\MovieBox.Common.csproj", "{EAFCDF6A-7499-4647-93AA-5ADA879130CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieBox.Common", "..\MovieBox.Common\MovieBox.Common.csproj", "{EAFCDF6A-7499-4647-93AA-5ADA879130CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieBox.DAO", "..\MovieBox.DAO\MovieBox.DAO.csproj", "{26C82FCF-13B4-4E10-A17F-AEE1365D812A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieBox.DAO", "..\MovieBox.DAO\MovieBox.DAO.csproj", "{26C82FCF-13B4-4E10-A17F-AEE1365D812A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieBox.Logic", "..\MovieBox.Logic\MovieBox.Logic.csproj", "{3E559906-B6A1-467A-BEE7-C6637A00D072}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieBox.Logic", "..\MovieBox.Logic\MovieBox.Logic.csproj", "{3E559906-B6A1-467A-BEE7-C6637A00D072}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieBox.Validation", "..\MovieBox.Validation\MovieBox.Validation.csproj", "{22E21B25-E84E-48E0-BB08-1BB1BEBA4797}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieBox.Validation", "..\MovieBox.Validation\MovieBox.Validation.csproj", "{22E21B25-E84E-48E0-BB08-1BB1BEBA4797}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E0418D2F-6A3E-4CCA-9747-6313A272A179}"
+	ProjectSection(SolutionItems) = preProject
+		..\MovieBox.Database\create_db.bat = ..\MovieBox.Database\create_db.bat
+		..\MovieBox.Database\Movies.db = ..\MovieBox.Database\Movies.db
+		..\MovieBox.Database\script.sql = ..\MovieBox.Database\script.sql
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
