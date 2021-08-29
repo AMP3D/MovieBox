@@ -1,7 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
 	<PropertyGroup>
 		<TargetFramework>net5.0</TargetFramework>
+		<RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -9,6 +10,8 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="AutoMapper" Version="10.1.1" />
+		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.9" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
 		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.12.2" />
@@ -18,4 +21,15 @@
 		<ProjectReference Include="..\MovieBox.Common\MovieBox.Common.csproj" />
 		<ProjectReference Include="..\MovieBox.Logic\MovieBox.Logic.csproj" />
 	</ItemGroup>
+
+	<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+		<Exec Command="..\MovieBox.Database\create_db.bat" Condition="!Exists('$(ProjectDir)\Movies.sqlite')" />
+	</Target>
+
+	<Target Name="CopyMoviesDBOnBuild" AfterTargets="AfterBuild">
+		<Copy SourceFiles="$(ProjectDir)\Movies.sqlite" DestinationFolder="$(OutDir)" Condition="Exists('$(ProjectDir)\Movies.sqlite')" />
+	</Target>
+	<Target Name="CopyMoviesDBOnPublish" AfterTargets="Publish">
+		<Copy SourceFiles="$(ProjectDir)\Movies.sqlite" DestinationFolder="$(PublishDir)" Condition="Exists('$(ProjectDir)\Movies.sqlite')" />
+	</Target>
 </Project>
