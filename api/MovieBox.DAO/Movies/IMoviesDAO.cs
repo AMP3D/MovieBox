@@ -12,7 +12,7 @@ namespace MovieBox.DAO.Movies
 
         public Task<MovieModel> GetMovieByIdAsync(int id);
 
-        public Task<MovieModel> GetMovieByTitleAsync(string title);
+        public Task<IEnumerable<MovieModel>> GetMoviesByTitleAsync(string title);
 
         public Task<MovieModel> UpdateMovieAsync(MovieModel model);
     }

@@ -10,7 +10,7 @@ namespace MovieBox.Logic.Query.Movies
 
     public record GetMoviesByGenreQuery(int GenreId) : IRequest<IEnumerable<MovieModel>>;
 
-    public record GetMovieByIdQuery(int Id) : IRequest<IEnumerable<MovieModel>>;
+    public record GetMovieByIdQuery(int Id) : IRequest<MovieModel>;
 
-    public record GetMovieByTitleQuery(string Title) : IRequest<IEnumerable<MovieModel>>;
+    public record GetMoviesByTitleQuery(string Title) : IRequest<IEnumerable<MovieModel>>;
 }
