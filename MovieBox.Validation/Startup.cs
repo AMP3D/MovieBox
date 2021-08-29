@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using MovieBox.Validation.Movies;
 
 namespace MovieBox.Validation
 {
@@ -6,6 +7,8 @@ namespace MovieBox.Validation
     {
         public static IServiceCollection AddMoviesValidationServices(this IServiceCollection services)
         {
+            services.AddTransient<IMoviesValidator, MoviesValidator>();
+
             return services;
         }
     }
