@@ -25,6 +25,7 @@ namespace MovieBox
             services.Configure<AppSettingsModel>(Configuration.GetSection("AppSettings"));
 
             services.AddAuthServices(Configuration);
+            services.AddAutoMapper(typeof(Startup));
             services.AddMovieLogicServices(Configuration);
 
             services.AddControllers();
