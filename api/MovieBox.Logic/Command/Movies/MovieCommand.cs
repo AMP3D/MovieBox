@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
+using MovieBox.Common.Models;
 
 namespace MovieBox.Logic.Command.Movies
 {
+    public record AddMovieCommand(MovieModel Model) : IRequest<MovieModel>;
 }
