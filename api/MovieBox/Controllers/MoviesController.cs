@@ -43,7 +43,6 @@ namespace MovieBox.Controllers
         public async Task<IActionResult> AddMovieAsync([FromBody] MovieCreateModel movieCreateModel)
         {
             var movieModel = _mapper.Map<MovieModel>(movieCreateModel);
-
             var result = await _mediator.Send(new AddMovieCommand(movieModel));
 
             return Created("movie", result);
@@ -144,13 +143,15 @@ namespace MovieBox.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> UpdateMovie([FromBody] JsonPatchDocument<MovieModel> patchDoc)
         {
-            MovieModel movie = null;
+            MovieModel movie;
 
             try
             {
                 movie = await Task.FromResult(new MovieModel());
 
                 patchDoc.ApplyTo(movie, ModelState);
+
+                // Call mediator update
             }
             catch (Exception ex)
             {
