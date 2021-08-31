@@ -22,6 +22,10 @@
 		<ProjectReference Include="..\MovieBox.Logic\MovieBox.Logic.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+		<Folder Include="wwwroot\" />
+	</ItemGroup>
+
 	<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
 		<Exec Command="..\MovieBox.Database\create_db.bat" Condition="!Exists('$(ProjectDir)\Movies.sqlite')" />
 	</Target>
@@ -31,5 +35,13 @@
 	</Target>
 	<Target Name="CopyMoviesDBOnPublish" AfterTargets="Publish">
 		<Copy SourceFiles="$(ProjectDir)\Movies.sqlite" DestinationFolder="$(PublishDir)" Condition="Exists('$(ProjectDir)\Movies.sqlite')" />
+	</Target>
+
+	<Target Name="web-client-dev" AfterTargets="AfterBuild">
+		<Exec Command="npm run build-dev" WorkingDirectory="..\..\web"></Exec>
+	</Target>
+
+	<Target Name="web-client-prod" BeforeTargets="ComputeFilesToPublish">
+		<Exec Command="npm run build" WorkingDirectory="client-app"></Exec>
 	</Target>
 </Project>

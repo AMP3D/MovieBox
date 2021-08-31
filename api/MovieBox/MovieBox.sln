@@ -16,7 +16,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E0418D2F-6A3E-4CCA-9747-6313A272A179}"
 	ProjectSection(SolutionItems) = preProject
 		..\MovieBox.Database\create_db.bat = ..\MovieBox.Database\create_db.bat
-		..\MovieBox.Database\Movies.db = ..\MovieBox.Database\Movies.db
 		..\MovieBox.Database\script.sql = ..\MovieBox.Database\script.sql
 	EndProjectSection
 EndProject

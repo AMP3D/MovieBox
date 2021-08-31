@@ -1,5 +1,9 @@
 CREATE TABLE IF NOT EXISTS Movie(Id INTEGER PRIMARY KEY, ImageUrl TEXT, IsAvailable INTEGER, PurchasePrice REAL, Rating TEXT, RentalPrice REAL, Summary TEXT, Title TEXT, YearReleased INTEGER);
-CREATE TABLE IF NOT EXISTS User(Id INTEGER PRIMARY KEY, UserName TEXT, Password TEXT);
+INSERT OR REPLACE INTO Movie VALUES (1, 'https://upload.wikimedia.org/wikipedia/en/f/f6/The_Peanut_Butter_Falcon_poster.jpeg', 1, 23.99, 'PG-13', 3.99, 'After running away from a residential nursing home to pursue his dream of becoming a pro wrestler, a man who has Down syndrome befriends an outlaw who becomes his coach and ally.', 'Peanut Butter Falcon', '2019');
+INSERT OR REPLACE INTO Movie VALUES (2, 'https://upload.wikimedia.org/wikipedia/en/8/85/Terminator2poster.jpg', 1, 9.99, 'R', 2.99, 'A cyborg, identical to the one who failed to kill Sarah Connor, must now protect her ten year old son, John Connor, from a more advanced and powerful cyborg.', 'Terminator 2: Judgment Day', '1991');
+INSERT OR REPLACE INTO Movie VALUES (3, 'https://upload.wikimedia.org/wikipedia/en/1/1d/Conairinternational.jpg', 1, 9.99, 'R', 2.99, 'Newly paroled ex-con and former U.S. Ranger Cameron Poe finds himself trapped in a prisoner transport plane when the passengers seize control.', 'Con Air', '1997');
+INSERT OR REPLACE INTO Movie VALUES (4, 'https://upload.wikimedia.org/wikipedia/en/d/d2/Prestige_poster.jpg', 1, 14.99, 'PG-13', 3.99, 'Period thriller set in Edwardian London where two rival magicians, partners until the tragic death of an assistant during a show, feud bitterly after one of them performs the ultimate magic trick - teleportation.', 'The Prestige', '2006');
+INSERT OR REPLACE INTO Movie VALUES (5, 'https://upload.wikimedia.org/wikipedia/en/5/5a/Piposter.jpg', 1, 5.99, 'PG-13', 2.99, 'Numbers whiz Max Cohen (Sean Gullette) is stunted by psychological delusions of paranoia and debilitating headaches.', 'Pi', '1998');
 
-INSERT OR REPLACE INTO Movie VALUES (1, 'https://en.wikipedia.org/wiki/The_Peanut_Butter_Falcon#/media/File:The_Peanut_Butter_Falcon_poster.jpeg', 1, 23.99, 'PG-13', 3.99, 'Good movie', 'Peanut Butter Falcon', '2019');
-INSERT OR REPLACE INTO User VALUES (1, 'admin', 'admin');
+CREATE TABLE IF NOT EXISTS User(Id INTEGER PRIMARY KEY, UserName TEXT, Password TEXT);
+INSERT OR REPLACE INTO User VALUES (1, 'admin', '@bc123#$456');
