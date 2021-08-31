@@ -1,4 +1,4 @@
-## Install
+## Dependencies
 
 Install [.NET 5 SDK](https://dotnet.microsoft.com/download/dotnet/5.0) ([Download Link - Windows](https://dotnet.microsoft.com/download/dotnet/thank-you/sdk-5.0.400-windows-x64-installer))
 
