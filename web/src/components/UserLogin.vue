@@ -58,16 +58,13 @@ export default defineComponent({
     };
   },
   methods: {
-    async login() {
-      await this.store.dispatch("getAccessToken");
-    },
-    submit() {
+    async submit() {
       const userLogin = {
         password: this.password,
         userName: this.userName,
       } as UserLogin;
 
-      this.store.dispatch("getAccessToken", userLogin);
+      await this.store.dispatch("getAccessToken", userLogin);
       this.$router.push("/movies");
     },
   },
