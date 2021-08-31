@@ -14,6 +14,7 @@ import { mapGetters } from "vuex";
 import UserLogin from "@/components/UserLogin.vue";
 
 export default defineComponent({
+  name: "user",
   components: {
     UserLogin,
   },

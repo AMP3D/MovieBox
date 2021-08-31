@@ -8,7 +8,7 @@ import { useStore } from "vuex";
 import MoviesSwiper from "@/components/MoviesSwiper.vue";
 
 export default defineComponent({
-  name: "movies-view",
+  name: "movies",
   components: {
     MoviesSwiper,
   },

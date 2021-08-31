@@ -2,24 +2,22 @@
   <h1>{{ movie.title }}</h1>
   <div class="row">
     <div class="col-auto mb-1">
-      <img :src="movie.imageUrl" :alt="movie.title" />
+      <img class="movie-image" :src="movie.imageUrl" :alt="movie.title" />
     </div>
     <div class="col-auto">
-      <div>
-        <button class="btn btn-primary mb-2">
-          Buy Now {{ movie.purchasePrice }}
-        </button>
-      </div>
-      <div>
-        <button class="btn btn-secondary mb-2">
-          Rent Now {{ movie.rentalPrice }}
-        </button>
-      </div>
+      <movie-buttons
+        :rentalPrice="movie.rentalPrice"
+        :purchasePrice="movie.purchasePrice"
+        @onPlayerChange="showPlayer = $event"
+      />
       <section class="details">
         <div>Title: {{ movie.title }}</div>
         <div>Year Released: {{ movie.yearReleased }}</div>
         <div>Rating: {{ movie.rating }}</div>
       </section>
+    </div>
+    <div class="col" v-if="showPlayer">
+      <movie-player :videoSrc="movie.imageUrl" />
     </div>
   </div>
   <div class="mt-5">
@@ -33,23 +31,30 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { mapGetters } from "vuex";
+import MovieButtons from "@/components/MovieButtons.vue";
+import MoviePlayer from "@/components/MoviePlayer.vue";
 
 export default defineComponent({
-  name: "MovieDetails",
+  name: "movie-details",
+  components: {
+    MovieButtons,
+    MoviePlayer,
+  },
   computed: {
     ...mapGetters({
       movie: "currentMovie",
     }),
   },
+  data() {
+    return {
+      showPlayer: false,
+    };
+  },
 });
 </script>
 
 <style lang="scss" scoped>
-button {
-  min-width: 200px;
-}
-
-img {
+.movie-image {
   height: 300px;
   width: 200px;
 }

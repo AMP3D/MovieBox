@@ -42,7 +42,7 @@ import "swiper/swiper-bundle.css";
 import { Movie } from "@/interfaces/interfaces";
 
 export default defineComponent({
-  name: "MoviesSwiper",
+  name: "movies-swiper",
   components: {
     Swiper,
     SwiperSlide,
