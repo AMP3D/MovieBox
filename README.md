@@ -31,7 +31,7 @@ The `/api​/users​/login` can be used to login with this json-body and creden
 ```
 {
   "password": "admin",
-  "userName": "admin"
+  "userName": "@bc123#$456"
 }
 ```
 
