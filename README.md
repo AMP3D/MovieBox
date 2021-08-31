@@ -40,7 +40,7 @@ Logging in enables you to create a movie using the `/api/movies/movie` endpoint.
 
 ## Project Scope
 
-This project aims to provide a demo experience imitating a movie rental experience with mocked data. 
+This project aims to provide a demo imitating a movie rental experience with mocked data. 
 The project uses ASP.NET 5 for the back-end API, SQLite for the database, and Vue3 for the front-end UI.
 
 ## Design
