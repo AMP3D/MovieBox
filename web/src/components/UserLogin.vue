@@ -38,19 +38,13 @@
 </template>
 
 <script lang="ts">
-import { UserLogin } from "@/interfaces/interfaces";
 import { defineComponent } from "vue";
-import { useStore } from "vuex";
+
+import { UserLogin } from "@/interfaces/interfaces";
 
 export default defineComponent({
   name: "user-login",
-  setup() {
-    const store = useStore();
-
-    return {
-      store,
-    };
-  },
+  emits: ["onLogin"],
   data() {
     return {
       password: "@bc123#$456",
@@ -58,14 +52,13 @@ export default defineComponent({
     };
   },
   methods: {
-    async submit() {
+    submit() {
       const userLogin = {
         password: this.password,
         userName: this.userName,
       } as UserLogin;
 
-      await this.store.dispatch("getAccessToken", userLogin);
-      this.$router.push("/movies");
+      this.$emit("onLogin", userLogin);
     },
   },
 });
