@@ -17,4 +17,9 @@
     <ProjectReference Include="..\MovieBox.Validation\MovieBox.Validation.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Handler\Movies\Purchase\" />
+    <Folder Include="Handler\Movies\Rental\" />
+  </ItemGroup>
+
 </Project>

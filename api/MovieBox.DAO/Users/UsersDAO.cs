@@ -46,10 +46,13 @@ namespace MovieBox.DAO.Users
             parameters.Add("UserName", userName, DbType.String);
 
             using var connection = CreateConnection();
-            var result = await connection.QueryFirstOrDefaultAsync<UserModel>(query, parameters);
 
-            // Mocking this to save time. In the real world I would have a UserRole table to query from
-            result.Roles = new List<string>() { "Admin" };
+            var result = await connection.QueryFirstOrDefaultAsync<UserModel>(query, parameters);
+            if (result != null)
+            {
+                // Mocking this to save time. In the real world I would have a UserRole table to query from
+                result.Roles = new List<string>() { "Admin" };
+            }
 
             return result;
         }

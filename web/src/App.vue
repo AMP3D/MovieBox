@@ -26,17 +26,4 @@ export default defineComponent({
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
-#nav {
-  a {
-    color: #000000;
-    cursor: pointer;
-    font-weight: bold;
-    text-decoration: none;
-
-    &.nav-link-item:hover {
-      text-decoration: underline;
-    }
-  }
-}
 </style>

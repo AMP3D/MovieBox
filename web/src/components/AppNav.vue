@@ -74,4 +74,17 @@ h3 {
   min-width: 300px;
   text-align: left;
 }
+
+#nav {
+  a {
+    color: #000000;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none;
+
+    &.nav-link-item:hover {
+      text-decoration: underline;
+    }
+  }
+}
 </style>

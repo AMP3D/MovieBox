@@ -1,8 +1,9 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using MovieBox.Logic.Command.Movies;
 
 namespace MovieBox.Controllers
 {
@@ -11,11 +12,13 @@ namespace MovieBox.Controllers
     public class MoviesRentalController : ControllerBase
     {
         private readonly ILogger<MoviesRentalController> _logger;
+        private readonly IMediator _mediator;
         private readonly string _userName;
 
-        public MoviesRentalController(IHttpContextAccessor httpContextAccessor, ILogger<MoviesRentalController> logger)
+        public MoviesRentalController(IHttpContextAccessor httpContextAccessor, ILogger<MoviesRentalController> logger, IMediator mediator)
         {
             _logger = logger;
+            _mediator = mediator;
             _userName = httpContextAccessor.HttpContext.User.Identity.Name;
         }
 
@@ -29,8 +32,9 @@ namespace MovieBox.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> RentMovieAsync(int id)
         {
-            // TODO: Pass username and id
-            throw new NotImplementedException();
+            await _mediator.Send(new RentMovieCommand(id, _userName));
+
+            return Ok(id);
         }
 
         /// <summary>
@@ -43,8 +47,9 @@ namespace MovieBox.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> ReturnMovieAsync(int id)
         {
-            // TODO: Pass username and id
-            throw new NotImplementedException();
+            await _mediator.Send(new ReturnMovieRentalCommand(id, _userName));
+
+            return NoContent();
         }
     }
 }

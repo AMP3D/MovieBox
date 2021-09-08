@@ -30,8 +30,8 @@ Go to [http://localhost:5000/swagger](http://localhost:5000/swagger) for swagger
 The `/api​/users​/login` can be used to login with this json-body and credentials:
 ```
 {
-  "password": "admin",
-  "userName": "@bc123#$456"
+  "password": "@bc123#$456",
+  "userName": "admin"
 }
 ```
 

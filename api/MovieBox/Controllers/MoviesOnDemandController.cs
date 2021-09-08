@@ -1,8 +1,9 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using MovieBox.Logic.Command.Movies;
 
 namespace MovieBox.Controllers
 {
@@ -11,11 +12,13 @@ namespace MovieBox.Controllers
     public class MoviesOnDemandController : ControllerBase
     {
         private readonly ILogger<MoviesOnDemandController> _logger;
+        private readonly IMediator _mediator;
         private readonly string _userName;
 
-        public MoviesOnDemandController(IHttpContextAccessor httpContextAccessor, ILogger<MoviesOnDemandController> logger)
+        public MoviesOnDemandController(IHttpContextAccessor httpContextAccessor, ILogger<MoviesOnDemandController> logger, IMediator mediator)
         {
             _logger = logger;
+            _mediator = mediator;
             _userName = httpContextAccessor.HttpContext.User.Identity.Name;
         }
 
@@ -29,8 +32,9 @@ namespace MovieBox.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> PlayMovieAsync(int id)
         {
-            // TODO: Pass username and id
-            throw new NotImplementedException();
+            await _mediator.Send(new PlayMovieCommand(id, _userName));
+
+            return Ok(id);
         }
     }
 }

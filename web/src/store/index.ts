@@ -8,7 +8,7 @@ export type State = {
   movies: Movie[];
 };
 
-const getSessionStorageState = () => {
+const getStateLocalStorage = () => {
   const json = localStorage.getItem("state");
   return json ? JSON.parse(json) : null;
 };
@@ -20,10 +20,10 @@ const setStateLocalStorage = (state: State) => {
   }
 };
 
-const sessionStorageState = getSessionStorageState();
+const localStorageState = getStateLocalStorage();
 
-const state: State = sessionStorageState
-  ? sessionStorageState
+const state: State = localStorageState
+  ? localStorageState
   : {
       currentMovie: null,
       movies: [],

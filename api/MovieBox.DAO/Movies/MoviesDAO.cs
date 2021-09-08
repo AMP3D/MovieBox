@@ -47,7 +47,7 @@ namespace MovieBox.DAO.Movies
             var query = $"SELECT * FROM Movie WHERE Title = @Title";
 
             var parameters = new DynamicParameters();
-            parameters.Add("Title", title, DbType.Int32);
+            parameters.Add("Title", title, DbType.String);
 
             var result = await GetMoviesAsync(query, parameters);
 
