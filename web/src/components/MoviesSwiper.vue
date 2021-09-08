@@ -20,7 +20,7 @@
           class="movie-img"
           :src="movie.imageUrl"
           :alt="movie.title"
-          @click="gotoMovie(movie)"
+          @click="movieSelected(movie)"
         />
       </swiper-slide>
     </swiper>
@@ -28,8 +28,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import { mapGetters, useStore } from "vuex";
+import { defineComponent, PropType } from "vue";
 
 // Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from "swiper/vue";
@@ -37,8 +36,8 @@ import SwiperCore, { Pagination, Navigation } from "swiper";
 
 // install Swiper modules
 SwiperCore.use([Pagination, Navigation]);
-
 import "swiper/swiper-bundle.css";
+
 import { Movie } from "@/interfaces/interfaces";
 
 export default defineComponent({
@@ -47,23 +46,13 @@ export default defineComponent({
     Swiper,
     SwiperSlide,
   },
-  computed: {
-    ...mapGetters({
-      movies: "movies",
-    }),
+  props: {
+    movies: Object as PropType<Movie[]>,
   },
-  setup() {
-    const store = useStore();
-
-    return {
-      store,
-    };
-  },
+  emits: ["onMovieSelected"],
   methods: {
-    gotoMovie(movie: Movie) {
-      this.store.commit("setCurrentMovie", movie);
-
-      this.$router.push("/movie-details");
+    movieSelected(movie: Movie) {
+      this.$emit("onMovieSelected", movie);
     },
   },
 });

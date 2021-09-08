@@ -1,10 +1,13 @@
 <template>
-  <movies-swiper />
+  <movies-swiper :movies="movies" @onMovieSelected="onMovieSelected" />
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { useStore } from "vuex";
+import { mapGetters, useStore } from "vuex";
+
+import { Movie } from "@/interfaces/interfaces";
+
 import MoviesSwiper from "@/components/MoviesSwiper.vue";
 
 export default defineComponent({
@@ -12,10 +15,27 @@ export default defineComponent({
   components: {
     MoviesSwiper,
   },
-  async created() {
+  computed: {
+    ...mapGetters({
+      movies: "movies",
+    }),
+  },
+  setup() {
     const store = useStore();
 
-    await store.dispatch("getMovies");
+    return {
+      store,
+    };
+  },
+  async created() {
+    await this.store.dispatch("getMovies");
+  },
+  methods: {
+    onMovieSelected(movie: Movie) {
+      this.store.commit("setCurrentMovie", movie);
+
+      this.$router.push("/movie-details");
+    },
   },
 });
 </script>
