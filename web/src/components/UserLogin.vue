@@ -9,7 +9,7 @@
             class="form-control"
             id="user-login-userName"
             :value="userName"
-            @change="userName = $event"
+            @change="userName = $event?.target?.value"
           />
         </div>
         <div>

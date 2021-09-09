@@ -1,5 +1,5 @@
 <template>
-  <div v-if="accessToken">
+  <div v-if="tokenValid">
     <h3>My Profile</h3>
     <p>Page not implemented. This is a placeholder user page.</p>
   </div>
@@ -23,7 +23,7 @@ export default defineComponent({
   },
   computed: {
     ...mapGetters({
-      accessToken: "accessToken",
+      tokenValid: "tokenValid",
     }),
   },
   setup() {

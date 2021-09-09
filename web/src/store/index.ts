@@ -1,10 +1,16 @@
 import { createStore } from "vuex";
 import { Movie, UserLogin } from "../interfaces/interfaces";
 import axios from "axios";
+import jwtDecode, { JwtPayload } from "jwt-decode";
+
+export type Jwt = {
+  accessToken: string | null;
+  accessTokenExpiration: number | null;
+};
 
 export type State = {
-  accessToken: string | null;
   currentMovie: Movie | null;
+  jwt: Jwt | null;
   movies: Movie[];
 };
 
@@ -33,9 +39,18 @@ export default createStore({
   state: state,
   actions: {
     async getAccessToken({ commit }, payload: UserLogin) {
-      const accessToken = await axios.post("api/users/login", payload);
+      const login = await axios.post("api/users/login", payload);
 
-      commit("setAccessToken", accessToken.data);
+      const accessToken = login?.data;
+      const decodedJwt = jwtDecode<JwtPayload>(accessToken);
+      const accessTokenExpiration = decodedJwt?.exp;
+
+      const jwt: Jwt = {
+        accessToken: accessToken,
+        accessTokenExpiration: accessTokenExpiration || null,
+      };
+
+      commit("setJwt", jwt);
     },
     async getMovies({ commit }) {
       const movies = await axios.get("api/movies");
@@ -47,13 +62,13 @@ export default createStore({
     },
   },
   mutations: {
-    setAccessToken(state, payload: string) {
-      state.accessToken = payload;
+    setCurrentMovie(state, payload: Movie) {
+      state.currentMovie = payload;
 
       setStateLocalStorage(state);
     },
-    setCurrentMovie(state, payload: Movie) {
-      state.currentMovie = payload;
+    setJwt(state, payload: Jwt) {
+      state.jwt = payload;
 
       setStateLocalStorage(state);
     },
@@ -64,9 +79,18 @@ export default createStore({
     },
   },
   getters: {
-    accessToken: (state) => state.accessToken,
     currentMovie: (state) => state.currentMovie,
     movies: (state) => state.movies,
+    tokenValid: (state) => {
+      if (state.jwt?.accessToken && state.jwt?.accessTokenExpiration) {
+        const expirationTimestamp = state.jwt?.accessTokenExpiration;
+        const nowTimestamp = Math.floor(new Date().getTime() / 1000);
+
+        return nowTimestamp < expirationTimestamp;
+      }
+
+      return false;
+    },
   },
   modules: {},
 });

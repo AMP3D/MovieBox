@@ -26,11 +26,11 @@
           </div>
           <div class="nav-link">
             <router-link class="nav-link-item" to="/user">{{
-              accessToken ? "My Profile" : "Login"
+              tokenValid ? "My Profile" : "Sign In"
             }}</router-link>
           </div>
-          <div class="nav-link nav-link-logout" v-if="accessToken">
-            <a class="nav-link-item" @click="logOut">Log Out</a>
+          <div class="nav-link nav-link-signout" v-if="tokenValid">
+            <a class="nav-link-item" @click="signOut">Sign Out</a>
           </div>
         </div>
       </div>
@@ -46,7 +46,7 @@ export default defineComponent({
   name: "app-nav",
   computed: {
     ...mapGetters({
-      accessToken: "accessToken",
+      tokenValid: "tokenValid",
     }),
   },
   setup() {
@@ -57,8 +57,8 @@ export default defineComponent({
     };
   },
   methods: {
-    logOut() {
-      this.store.commit("setAccessToken", null);
+    signOut() {
+      this.store.commit("setJwt", null);
     },
   },
 });
@@ -67,12 +67,6 @@ export default defineComponent({
 <style lang="scss" scoped>
 h3 {
   text-align: center;
-}
-
-.user-login-fields > div {
-  margin-bottom: 10px;
-  min-width: 300px;
-  text-align: left;
 }
 
 #nav {
