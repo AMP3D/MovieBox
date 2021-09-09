@@ -23,8 +23,14 @@ export default defineComponent({
   },
   computed: {
     ...mapGetters({
+      lastRoute: "lastRoute",
       tokenValid: "tokenValid",
     }),
+  },
+  data() {
+    return {
+      lastRoutePath: null,
+    };
   },
   setup() {
     const store = useStore();
@@ -33,11 +39,15 @@ export default defineComponent({
       store,
     };
   },
+  mounted() {
+    // Set initial last-routed path so when lastRoute gets updated in the store, it doesn't take the current path
+    this.lastRoutePath = this.lastRoute;
+  },
   methods: {
     async onLogin(userLogin: UserLoginModel) {
       await this.store.dispatch("getAccessToken", userLogin);
 
-      this.$router.push("/movies");
+      this.$router.push(this.lastRoutePath || "/movies");
     },
   },
 });

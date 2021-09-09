@@ -10,6 +10,7 @@ export type Jwt = {
 
 export type State = {
   currentMovie: Movie | null;
+  lastRoute: string | null;
   jwt: Jwt | null;
   movies: Movie[];
 };
@@ -57,6 +58,9 @@ export default createStore({
 
       commit("setMovies", movies.data);
     },
+    setLastRoute({ commit }, payload: string) {
+      commit("setLastRoute", payload);
+    },
     setMovies({ commit }, payload: Movie[]) {
       commit("setMovies", payload);
     },
@@ -72,6 +76,11 @@ export default createStore({
 
       setStateLocalStorage(state);
     },
+    setLastRoute(state, payload: string) {
+      state.lastRoute = payload;
+
+      setStateLocalStorage(state);
+    },
     setMovies(state, payload: Movie[]) {
       state.movies = payload;
 
@@ -80,6 +89,7 @@ export default createStore({
   },
   getters: {
     currentMovie: (state) => state.currentMovie,
+    lastRoute: (state) => state.lastRoute,
     movies: (state) => state.movies,
     tokenValid: (state) => {
       if (state.jwt?.accessToken && state.jwt?.accessTokenExpiration) {
