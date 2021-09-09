@@ -1,40 +1,33 @@
 <template>
-  <form>
-    <div class="row g-3">
-      <div class="user-login-fields col-sm-4 mx-auto">
-        <div>
-          <label for="user-login-userName">User name</label>
-          <input
-            type="text"
-            class="form-control"
-            id="user-login-userName"
-            :value="userName"
-            @change="userName = $event?.target?.value"
-          />
-        </div>
-        <div>
-          <label for="user-login-password">Password</label>
-          <input
-            type="password"
-            class="form-control"
-            id="user-login-password"
-            :value="password"
-            @change="password = $event"
-          />
-        </div>
-        <div class="text-left">
-          <button
-            type="submit"
-            class="btn btn-primary"
-            id="user-login-submit"
-            @click="submit"
-          >
-            Login
-          </button>
-        </div>
+  <div class="row g-3">
+    <div class="user-login-fields col-sm-4 mx-auto">
+      <div>
+        <label for="user-login-userName">User name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="user-login-userName"
+          :value="userName"
+          @change="userName = $event?.target?.value"
+        />
+      </div>
+      <div>
+        <label for="user-login-password">Password</label>
+        <input
+          type="password"
+          class="form-control"
+          id="user-login-password"
+          :value="password"
+          @change="password = $event"
+        />
+      </div>
+      <div class="text-left">
+        <button class="btn btn-primary" id="user-login-submit" @click="submit">
+          Login
+        </button>
       </div>
     </div>
-  </form>
+  </div>
 </template>
 
 <script lang="ts">
