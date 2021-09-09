@@ -6,9 +6,12 @@
     </div>
     <div class="col-auto">
       <movie-buttons
+        :isPlaying="showPlayer"
         :rentalPrice="movie.rentalPrice"
         :purchasePrice="movie.purchasePrice"
-        @onPlayerChange="showPlayer = $event"
+        @onPurchase="handlePlayer(true)"
+        @onRent="handlePlayer(true)"
+        @onReturn="handlePlayer(false)"
       />
       <section class="details">
         <div>Title: {{ movie.title }}</div>
@@ -16,7 +19,7 @@
         <div>Rating: {{ movie.rating }}</div>
       </section>
     </div>
-    <div class="col" v-if="showPlayer">
+    <div class="col-xl-6" v-if="showPlayer && tokenValid">
       <movie-player :videoSrc="movie.imageUrl" />
     </div>
   </div>
@@ -30,7 +33,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { mapGetters } from "vuex";
+import { mapGetters, useStore } from "vuex";
 import MovieButtons from "@/components/MovieButtons.vue";
 import MoviePlayer from "@/components/MoviePlayer.vue";
 
@@ -43,12 +46,50 @@ export default defineComponent({
   computed: {
     ...mapGetters({
       movie: "currentMovie",
+      tokenValid: "tokenValid",
+      userMovies: "userMovies",
     }),
+  },
+  watch: {
+    tokenValid(isValid) {
+      // Hide player if user is not signed in
+      if (!isValid) {
+        this.showPlayer = false;
+      }
+    },
   },
   data() {
     return {
       showPlayer: false,
     };
+  },
+  setup() {
+    const store = useStore();
+
+    return {
+      store,
+    };
+  },
+  mounted() {
+    if (this.tokenValid && this.userMovies[this.movie.id]) {
+      this.showPlayer = true;
+    }
+  },
+  methods: {
+    handlePlayer(showPlayer: boolean) {
+      this.showPlayer = showPlayer;
+
+      if (showPlayer) {
+        this.store.commit("addUserMovie", this.movie);
+      } else {
+        this.store.commit("removeUserMovie", this.movie);
+      }
+
+      // Send to user page for login if no valid token
+      if (!this.tokenValid) {
+        this.$router.push("/user");
+      }
+    },
   },
 });
 </script>

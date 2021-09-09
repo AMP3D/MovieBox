@@ -2,8 +2,8 @@
   <div>
     <button
       class="btn btn-primary mb-2"
-      @click="showPlayBtn = true"
-      v-if="!showPlayBtn"
+      @click="this.$emit('onPurchase')"
+      v-if="!isPlaying"
     >
       Buy Now {{ purchasePrice }}
     </button>
@@ -11,14 +11,14 @@
   <div>
     <button
       class="btn btn-secondary mb-2"
-      @click="showPlayBtn = true"
-      v-if="!showPlayBtn"
+      @click="this.$emit('onRent')"
+      v-if="!isPlaying"
     >
       Rent Now {{ rentalPrice }}
     </button>
   </div>
-  <div v-if="showPlayBtn">
-    <button class="btn btn-danger mb-2" @click="showPlayBtn = false">
+  <div v-if="isPlaying">
+    <button class="btn btn-danger mb-2" @click="this.$emit('onReturn')">
       Return
     </button>
   </div>
@@ -30,20 +30,11 @@ import { defineComponent } from "vue";
 export default defineComponent({
   name: "movie-buttons",
   props: {
+    isPlaying: Boolean,
     purchasePrice: Number,
     rentalPrice: Number,
   },
-  emits: ["onPlayerChange"],
-  watch: {
-    showPlayBtn() {
-      this.$emit("onPlayerChange", this.showPlayBtn);
-    },
-  },
-  data() {
-    return {
-      showPlayBtn: false,
-    };
-  },
+  emits: ["onPurchase", "onRent", "onReturn"],
 });
 </script>
 

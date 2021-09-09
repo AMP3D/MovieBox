@@ -23,12 +23,22 @@ export default defineComponent({
       this.store.commit("setLastRoute", from?.path);
     },
   },
+  created() {
+    window.removeEventListener("beforeunload", this.onBeforeUnload);
+    window.addEventListener("beforeunload", this.onBeforeUnload);
+  },
   setup() {
     const store = useStore();
 
     return {
       store,
     };
+  },
+  methods: {
+    onBeforeUnload() {
+      // Before a page refresh takes effect and clears state, persist it to local storage
+      this.store.dispatch("saveState");
+    },
   },
 });
 </script>

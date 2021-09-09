@@ -13,16 +13,19 @@ export type State = {
   lastRoute: string | null;
   jwt: Jwt | null;
   movies: Movie[];
+  userMovies: Record<string, Movie>;
 };
 
 const getStateLocalStorage = () => {
   const json = localStorage.getItem("state");
+
   return json ? JSON.parse(json) : null;
 };
 
 const setStateLocalStorage = (state: State) => {
   if (state) {
     const json = JSON.stringify(state);
+
     localStorage.setItem("state", json);
   }
 };
@@ -32,8 +35,8 @@ const localStorageState = getStateLocalStorage();
 const state: State = localStorageState
   ? localStorageState
   : {
-      currentMovie: null,
       movies: [],
+      userMovies: {},
     };
 
 export default createStore({
@@ -58,34 +61,25 @@ export default createStore({
 
       commit("setMovies", movies.data);
     },
-    setLastRoute({ commit }, payload: string) {
-      commit("setLastRoute", payload);
-    },
-    setMovies({ commit }, payload: Movie[]) {
-      commit("setMovies", payload);
+    saveState({ commit }) {
+      commit("saveStateToLocalStorage");
     },
   },
   mutations: {
-    setCurrentMovie(state, payload: Movie) {
-      state.currentMovie = payload;
+    addUserMovie: (state, payload: Movie) => {
+      if (!state.userMovies) {
+        state.userMovies = {};
+      }
 
-      setStateLocalStorage(state);
+      state.userMovies[payload.id] = payload;
     },
-    setJwt(state, payload: Jwt) {
-      state.jwt = payload;
-
-      setStateLocalStorage(state);
-    },
-    setLastRoute(state, payload: string) {
-      state.lastRoute = payload;
-
-      setStateLocalStorage(state);
-    },
-    setMovies(state, payload: Movie[]) {
-      state.movies = payload;
-
-      setStateLocalStorage(state);
-    },
+    removeUserMovie: (state, payload: Movie) =>
+      delete state.userMovies[payload.id],
+    saveStateToLocalStorage: (state) => setStateLocalStorage(state),
+    setCurrentMovie: (state, payload: Movie) => (state.currentMovie = payload),
+    setJwt: (state, payload: Jwt) => (state.jwt = payload),
+    setLastRoute: (state, payload: string) => (state.lastRoute = payload),
+    setMovies: (state, payload: Movie[]) => (state.movies = payload),
   },
   getters: {
     currentMovie: (state) => state.currentMovie,
@@ -101,6 +95,7 @@ export default createStore({
 
       return false;
     },
+    userMovies: (state) => state.userMovies,
   },
   modules: {},
 });
